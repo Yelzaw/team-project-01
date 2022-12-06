@@ -18,6 +18,52 @@ $(document).ready(function(){
          // still need to display previous search, allow user to click
     })
 
+     // Store the search history in array, and store in local
+     var countryList = [];
+
+     function storeCountryName(name) {
+          if (!countryList.includes(name)){
+          countryList.push(name);
+          localStorage.setItem("countryList", JSON.stringify(countryList));
+          }
+     }
+     // show the city name of search history from array
+     var searchHistoryListEl = document.querySelector('#previos-search');
+     function renderCountryList(){
+          if (countryList.length!==0){
+          $('#previos-search').attr('style','display:block'); 
+          $('.clearBtn').attr('style','display:block'); 
+          } 
+          searchHistoryListEl.innerHTML = "";
+          for (var i=0; i<countryList.length; i++){
+          var list = countryList[i];
+          $('#previos-search').append(`<p><button class="btn" value="${list}">${list}</button></p>`);
+          }
+          
+     }
+     // get search history from local sotrage and show on browser
+     function init() {
+          var storedList = JSON.parse(localStorage.getItem("countryList"));
+          if (storedList!==null){
+          countryList = storedList;
+          }
+          renderCountryList();
+     }
+     //call function for selected city from search history to show weather data
+     var buttonClickHandler = function (event) {
+          var list = event.target.getAttribute('value');
+          if (list) {
+          callCountryData(list);
+          }
+     };
+     //get the data for selected city from history list
+     searchHistoryListEl.addEventListener('click', buttonClickHandler);
+
+     //clear search history
+     $(".clearBtn").on("click",function(){
+     localStorage.clear();
+     location.reload();
+     })
     
     //Calendar
     function displayTime(){
@@ -62,10 +108,12 @@ $(document).ready(function(){
                                   $('#currency').attr('style','border-color:grey');                                   
                                   $("#today-rate").siblings("h6").text("Today Exchange Rate");                                   
                                   $('#country-name').attr("style","padding:15px");
-
+                                   var countryName = data[0].name.common;
+                                   storeCountryName(countryName);
+                                   renderCountryList();
                                   // currencyExchange();
                                   exchangeRate();
-                                  wikipediaBlurb(input);// <-----link to wikipedia function
+                                  wikipediaBlurb(countryName);// <-----link to wikipedia function
                                   // <----- can place weather function link here
                                   initMap();
                              })
@@ -102,47 +150,6 @@ $(document).ready(function(){
               });
           });
     }
-    // old exchange link
-    // function currencyExchange(){          
-         
-    //      var myHeaders = new Headers();
-    //      myHeaders.append("apikey", "RLLZMhNlBtFGhOYYLnKAl3NDZNk45pep");
-    //      var requestOptions = {
-    //           method: 'GET',
-    //           redirect: 'follow',
-    //           headers: myHeaders
-    //           };
-    //           //Another API to get exchange information
-    //      fetch("https://api.apilayer.com/exchangerates_data/convert?to="+compareCurrency+"&from="+currencyCode+"&amount=1", requestOptions) 
-    //      .then(function(response){
-    //           if(response.ok){
-    //                response.json().then(function(data){
-    //                     // console.log(data);
-    //                     var resultLocalUsd = data.result;
-    //                     // console.log(resultLocalUsd);
-    //                     var showResult = document.createElement("p");
-    //                     showResult.textContent="1 "+currencyName+" = "+resultLocalUsd+" "+compareName;
-    //                     exchangeInfo.appendChild(showResult);
-    //                })
-    //           }
-    //           fetch("https://api.apilayer.com/exchangerates_data/convert?to="+currencyCode+"&from="+compareCurrency+"&amount=1", requestOptions)
-    //           .then(function(response){
-    //           if(response.ok){
-    //                response.json().then(function(data){
-    //                     // console.log(data);
-    //                     var resultUsdLocal = data.result;
-    //                     // console.log(resultUsdLocal);
-    //                     var showResult = document.createElement("p");
-    //                     showResult.textContent="1 "+compareName+" = "+resultUsdLocal+" "+currencyName;
-    //                     exchangeInfo.appendChild(showResult);
-                        
-    //                })
-    //           }
-    //           })  
-    //           .catch(error => console.log('error', error));
-    //      })          
-    //      .catch(error => console.log('error', error));               
-    // }     
     // END OF CURRENCY EXCHANGE RATE
 
     // Wikipedia blurbs
