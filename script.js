@@ -42,7 +42,7 @@ $(document).ready(function(){
           
      }
      // get search history from local sotrage and show on browser
-     function init() {
+     function searchHistory() {
           var storedList = JSON.parse(localStorage.getItem("countryList"));
           if (storedList!==null){
           countryList = storedList;
@@ -188,5 +188,5 @@ $(document).ready(function(){
       });
     }
     // END OF MAP
-    window.onload = callCountryData("canada"); // <---- default country to load, keep commented unless testing or deploying to avoid API call limit
+    window.onload = searchHistory(), callCountryData("canada"); // <---- default country to load, keep commented unless testing or deploying to avoid API call limit
 })
