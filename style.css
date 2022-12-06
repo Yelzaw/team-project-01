@@ -1,74 +1,128 @@
-/* We need to use a css library other than bootstrap, I suggest we find something just for fonts since she's already done */
 *{
      box-sizing: border-box;
 }
-
+body {
+     /* border: 5px solid red;  */
+     margin-left: 10%;
+     display: flex;
+     flex-direction: column;
+     background-color: rgb(180, 175, 247) !important;
+}
 #map {
-     height: 400px;
-     border: 2px solid lightgrey;
+     height: 300px; 
+     width: 600px; 
+     border: 5px solid rgba(109, 199, 194, 0.904); 
+     border-radius: 10px;
+}
+#weather {
+     height: 300px;
+     width: 600px; 
+     border: 5px solid rgba(109, 199, 194, 0.904); 
+     border-radius: 10px;
 }
 #history {
+     background-color: rgba(143, 33, 245, 0.384);
+     border: 3px solid rgb(132, 10, 247);
+     margin: 1%;
+     padding: 2%;
+}
+#today-rate {
      border: 2px solid green;
+     margin: 1%;
 }
 #content {
      display: flex;
      flex-direction: column;
-     border: 3px solid orange;
-     background-color: rgb(231, 178, 178);
+     margin-left: auto;
+     margin-right: auto;
+     /* border: 3px solid orange; */
 }
 #search {
-     background-color: lightblue;
-     flex-direction: column;
+     width: 200px;
+     margin-left: 3%;
+     /* border: 2px solid blue; */
 }
 .current-search {
      padding: 10px;
 }
 #input {
      width:100%;
+     border-radius: 7px;
 }
 #submit-btn {
-    margin-top: 5px;
+     margin-top: 5px;
+     width: 100%;
+     border-radius: 7px;
 }
 #main-container {
      display: flex;
-}
-#btc-price {
-     border: 2px solid yellowgreen;
+     /* border:4px solid blueviolet; */
 }
 #head {
-     display: flex;
-     background-color: aliceblue;
-     width: 100%;
+     margin: 3%;
+     /* border: 5px solid pink; */
 }
 #calendar-holder {
      display: flex;
-     width: auto;
-     justify-content: flex-end;
+     flex-direction: flex-end;
+     border: 5px solid rgba(109, 199, 194, 0.904);
+     background-color: rgba(154, 247, 242, 0.904);
+     border-radius: 15px;
+     width: 190px;
 }
-#head-title {
-     display: flex;
-     padding: 10px;
+#head-tittle {
+     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+     width: 100%;
+     /* border: 5px solid darkred; */
+     /* text-align: justify; */
+     
 }
 
-.card {
+#currency {
+     background-color: rgba(143, 33, 245, 0.384);
+     border: 3px solid rgb(132, 10, 247) !important;
      margin: 1%;
-     padding: 10px;
-}
-
-/* #weather, */
-#currency,
-#history
- {
-     border-color:white;
+     padding: 2%;
+     
 }
 
 #head-container {
-     width: 100%;
+     display: flex;
+     flex-direction: row;
+     /* width: 100%;  */
+     /* border: 5px solid darkgoldenrod; */
+     
+}
+.eachPreviousSearch {
+     margin: 2% 2% 2% 2%; 
+     /* padding-right: 5%; */
+     width: 95%; 
+     border-radius: 7px;
+     border: 1px solid rgba(109, 199, 194, 0.904); 
+     background-color: rgba(154, 247, 242, 0.904);
+}
+#mapWeatherContainer {
+     display: flex;
+     flex-direction: row;
+     justify-content: space-evenly;
+     /* border: 5px solid greenyellow; */
+}
+footer {
+     text-align: center;
+     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+     margin: 5%;
+}
+#capital-name {
+     background-color: rgba(143, 33, 245, 0.384);
+     border: 3px solid rgb(132, 10, 247);
+     border-radius: 7px;
+     margin: 1%;
+     padding: 2%;
 }
 
 /* When screen is too small, content shuffles under search */
 @media screen and (max-width: 800px) {
      #content, #search {
-       width: 100%;
+       width: 95%;
      }
    }
