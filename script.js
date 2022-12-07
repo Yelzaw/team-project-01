@@ -1,21 +1,27 @@
 $(document).ready(function(){
      const searches = JSON.parse(window.localStorage.getItem("search")) || [];
-     // const input = $('#input');
-     // const inputValue = input[0].value;
+     var searchHistoryListEl=document.querySelector('#previos-search');
      console.log(searches)
+     function historyListUpdate() {
           for (let i =0; i<searches.length; i++){
+               searches.length > 5? searches.shift() : searches;// if there are more than 5 searches, remove the oldest one
                const newPreviosSearch = `<button id="eachPreviousSearch${i}" class="eachPreviousSearch">${searches[i]}</button>`
                $('#previos-search').prepend(newPreviosSearch);
-               $(`#eachPreviousSearch${i}`).on('click', function(){
+               $(`#eachPreviousSearch${i}`).on('click', function() {
+                    $('#previos-search').prepend(newPreviosSearch);
                     inputValue = searches[i]
                     callCountryData(inputValue)
                     var newSearch = inputValue;
                     searches.push(newSearch);
                     window.localStorage.setItem("search", JSON.stringify(searches));
-                    
-               })
+                    location. reload();
+               }) 
           } 
-     console.log('connected');
+     }
+     historyListUpdate();
+
+
+
      var latitude = 45.42;
      var longtitude = -75.7;
      initMap();
@@ -28,6 +34,8 @@ $(document).ready(function(){
           searches.push(newSearch);
           window.localStorage.setItem("search", JSON.stringify(searches));
           console.log(inputValue);
+          searchHistoryListEl.innerHTML = "";
+          historyListUpdate()
           $('#input').val("");//clean input space 
      })
      
@@ -94,24 +102,30 @@ $(document).ready(function(){
           var key = "9d764e23d7588b589becfa68e6021ab75a789334";
 
           const url1 =  "https://api.getgeoapi.com/v2/currency/convert?api_key="+key+"&from="+compareCurrency+"&to="+currencyCode+"&amount=1&format=json"
-
-          $.getJSON(url1, function (data) {
-               console.log(data);
-               var resultLocalUsd = (Object.values(data.rates))[0].rate;
-               var showResult = document.createElement("p");
-               showResult.textContent="1 "+currencyName+" = "+resultLocalUsd+" "+compareName;
-               exchangeInfo.appendChild(showResult);
-
+          fetch(url1)
+               .then(function(response){
+                    if(response.ok){
+                         response.json().then(function(data){
+                              var resultLocalUsd = (Object.values(data.rates))[0].rate;
+                              var showResult = document.createElement("p");
+                              showResult.textContent="1 "+currencyName+" = "+resultLocalUsd+" "+compareName;
+                              exchangeInfo.appendChild(showResult);
+                         })
+                    } else {
+                         var showResult = document.createElement("p");
+                         showResult.textContent=" Sorry, daily limit had used up. ";
+                         exchangeInfo.appendChild(showResult);
+                    }
+               })
+          
                const url2 =  "https://api.getgeoapi.com/v2/currency/convert?api_key="+key+"&from="+currencyCode+"&to="+compareCurrency+"&amount=1&format=json"
 
                $.getJSON(url2, function (data) {
-                    console.log(data);
                     var resultLocalUsd = (Object.values(data.rates))[0].rate;
                     var showResult = document.createElement("p");
                     showResult.textContent="1 "+compareName+" = "+resultLocalUsd+" "+currencyName;
                     exchangeInfo.appendChild(showResult);
-               });
-          });
+               });                   
      }
      // END OF CURRENCY EXCHANGE RATE
 
@@ -134,6 +148,10 @@ $(document).ready(function(){
                               var showResult = document.createElement("p");
                               showResult.textContent=blurb;
                               wikiInfo.appendChild(showResult);
+                              var wikiLink = document.createElement("a");
+                              wikiLink.setAttribute("href", "https://en.wikipedia.org/?curid="+pageId);
+                              wikiLink.textContent="Read more on Wikipedia";
+                              wikiInfo.appendChild(wikiLink);
                          })
                     }
                })
@@ -150,5 +168,6 @@ $(document).ready(function(){
           });
      }
      // END OF MAP
-     window.onload = callCountryData("canada"); // <---- default country to load, keep commented unless testing or deploying to avoid API call limit
+     // on window load, call country data of last search or default country
+     window.onload = searches[4]? callCountryData(searches[4]):callCountryData("canada"); // <---- default country to load, keep commented unless testing or deploying to avoid API call limit
 })

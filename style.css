@@ -1,22 +1,21 @@
-*{
+* {
      box-sizing: border-box;
 }
 body {
      /* border: 5px solid red;  */
-     margin-left: 10%;
      display: flex;
      flex-direction: column;
-     background-color: rgb(180, 175, 247) !important;
+     background-color: rgb(180, 175, 247);
 }
 #map {
-     height: 300px; 
-     width: 600px; 
+     height: 200px;
+     width: 500px; 
      border: 5px solid rgba(109, 199, 194, 0.904); 
      border-radius: 10px;
 }
 #weather {
-     height: 300px;
-     width: 600px; 
+     height: 200px;
+     width: 500px; 
      border: 5px solid rgba(109, 199, 194, 0.904); 
      border-radius: 10px;
 }
@@ -27,20 +26,24 @@ body {
      padding: 2%;
 }
 #today-rate {
-     border: 2px solid green;
      margin: 1%;
 }
 #content {
      display: flex;
      flex-direction: column;
-     margin-left: auto;
-     margin-right: auto;
-     /* border: 3px solid orange; */
+     width: 70%;
+     margin-right: 3%;
+     margin-left: 1%;
+     /* border: 3px solid orange;  */
 }
 #search {
      width: 200px;
+     display: flex;
+     flex-direction: column;
+     /* justify-content: center; */
      margin-left: 3%;
-     /* border: 2px solid blue; */
+     margin-right: 1%;
+     /* border: 2px solid blue;  */
 }
 .current-search {
      padding: 10px;
@@ -55,8 +58,10 @@ body {
      border-radius: 7px;
 }
 #main-container {
+     width: auto;
      display: flex;
-     /* border:4px solid blueviolet; */
+     flex-wrap: wrap;
+     /* border:4px solid blueviolet;  */
 }
 #head {
      margin: 3%;
@@ -64,16 +69,20 @@ body {
 }
 #calendar-holder {
      display: flex;
-     flex-direction: flex-end;
+     justify-content: center;
      border: 5px solid rgba(109, 199, 194, 0.904);
      background-color: rgba(154, 247, 242, 0.904);
      border-radius: 15px;
      width: 190px;
+     margin-left: auto;
+     margin-right: auto;
 }
 #head-tittle {
+     display: flex;
+     justify-content: center;
      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
      width: 100%;
-     /* border: 5px solid darkred; */
+     /* border: 5px solid darkred;  */
      /* text-align: justify; */
      
 }
@@ -119,10 +128,14 @@ footer {
      margin: 1%;
      padding: 2%;
 }
+#submit-btn {
+     border: 1px solid rgba(109, 199, 194, 0.904); 
+     background-color: rgba(154, 247, 242, 0.904);
+}
 
 /* When screen is too small, content shuffles under search */
-@media screen and (max-width: 800px) {
+@media only screen and (max-width: 800px) {
      #content, #search {
-       width: 95%;
+     width: 95%;
      }
-   }
+}
