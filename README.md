@@ -3,9 +3,9 @@
 <!-- README DRAFT-->
 ## About The Project
 
-<!--Add screenshot image when finished-->
+<img src="/assets/images/screenshot.png" width="350" alt="Screenshot of webpage">
 
-Live [link](https://valeriikryshtal.github.io/Team-project-01/)
+Live [link](https://valeriikryshtal.github.io/where-you-want-to-learn/)
 
 <!--Change link after changing name-->
 

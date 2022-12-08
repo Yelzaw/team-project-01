@@ -5,11 +5,10 @@
      <meta http-equiv="X-UA-Compatible" content="IE=edge">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <title>Team-project-01</title>
-     <link rel="stylesheet" href="style.css">
+     <link rel="stylesheet" href="./assets/css/style.css">
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css"> 
      <script src="https://maps.google.com/maps/api/js?key=AIzaSyAClDUtf010ZLBuUcuto6WRGodJCVbiWnc" ></script>     
      <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-     <script src="./script.js"></script>
      <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"></script>
 </head>
 
@@ -37,24 +36,24 @@
           <!-- Main content boxes -->
           <article id="content" class="row">
                <h2 id="country-name"></h2>
-               <div id="history" class="card"></div>               
+               <div id="history" class="card error"></div>               
                <div id="currency" class="card">            
-                    <h6> </h6>
-                    <div id="today-rate"></div>
+                    <h6 class="error"> </h6>
+                    <div id="today-rate" class="error"></div>
                </div>   
-               <h4 id="capital-name">Capital Name</h4>
+               <h4 id="capital-name" class="error">Capital Name</h4>
                <div id="mapWeatherContainer" class="mapWeatherContainer">
                     <div id="map" class="map">            
-                         <h6> </h6>
-                         <div id="currentMap">Map</div>
+                         <h6 class="error"> </h6>
+                         <div id="currentMap" class="error">Map</div>
                     </div>
-                    <div id="weather" class="weather">            
-                         <h6> </h6>
-                         <div id="today-weather">Weather Box</div>
+                    <div id="weather" class="weather">   
+                         <div id="today-weather" class="error"></div>
                     </div>
                </div> 
           </article>
-     </main>
+     </main>     
+     <script src="./assets/js/script.js"></script>
 </body>
 
 <footer>
