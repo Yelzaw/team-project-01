@@ -52,10 +52,31 @@ body {
      width:100%;
      border-radius: 7px;
 }
+.clearBtn{
+     display:none;
+     margin-top: 5px;
+     width: 100%;
+     border-radius: 7px;
+     border: 1px solid rgba(109, 199, 194, 0.904); 
+     background-color: rgba(154, 247, 242, 0.904);
+     text-align: center;
+     text-transform: uppercase;
+     color:#555;
+     font-size:11px;
+     font-weight:bold;
+}
+
+#submit-btn:hover,
+.clearBtn:hover{
+     cursor:pointer;
+     background-color: rgba(11, 167, 71, 0.904);
+}
 #submit-btn {
      margin-top: 5px;
      width: 100%;
      border-radius: 7px;
+     border: 1px solid rgba(109, 199, 194, 0.904); 
+     background-color: rgba(154, 247, 242, 0.904);     
 }
 #main-container {
      width: auto;
@@ -77,7 +98,7 @@ body {
      margin-left: auto;
      margin-right: auto;
 }
-#head-tittle {
+#head-title {
      display: flex;
      justify-content: center;
      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -109,6 +130,8 @@ body {
      border-radius: 7px;
      border: 1px solid rgba(109, 199, 194, 0.904); 
      background-color: rgba(154, 247, 242, 0.904);
+     /*When there is too much text for button, wrap text*/
+     word-wrap: break-word;
 }
 #mapWeatherContainer {
      display: flex;
@@ -128,10 +151,11 @@ footer {
      margin: 1%;
      padding: 2%;
 }
-#submit-btn {
-     border: 1px solid rgba(109, 199, 194, 0.904); 
-     background-color: rgba(154, 247, 242, 0.904);
-}
+
+a, a:hover, a:focus, a:active {
+     text-decoration: none;
+     color: inherit;
+ }
 
 /* When screen is too small, content shuffles under search */
 @media only screen and (max-width: 800px) {
@@ -139,3 +163,4 @@ footer {
      width: 95%;
      }
 }
+/*Classes used are: .current-search, .eachPreviousSearch*/

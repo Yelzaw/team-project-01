@@ -13,36 +13,35 @@
 </head>
 
 <body>
-     <header id="head" class="head-container">
+     <header id="head">
           <div class="row" id="head-container">
                <!-- <div id="calendar-holder" class="col-1">Current date</div> -->
-               <h1 id="head-tittle" class="head-tittle">Where in the world would you want to learn about?</h1>   
+               <h1 class="title">Where in the world would you want to learn about?</h1>   
           </div>
      </header>
 
      <main id="main-container" class="row">
           <!-- Search tab -->
-          <div id="search" class="search-container">
-               <div id="calendar-holder" class="calendar-holder">Current date</div>
+          <div id="search">
+               <div id="calendar-holder">Current date</div>
                <div class="current-search">Search for a Country: 
                     <input id="input" type="text">
-                    <button id="submit-btn" type="button" class="btn">Search</button>     
+                    <button id="submit-btn" type="button">Search</button>     
                </div>
                <!-- THIS NEEDS TO BE DONE TO COMPLETE PROJECT CRITERIA -->
-               <div id="previos-search" class="previos-search">
-                    
-               </div>
+               <div id="previous-search" class="previous-search"> </div>
+               <div class="clearBtn">Clear Search History</div>
           </div>
           <!-- Main content boxes -->
           <article id="content" class="row">
                <h2 id="country-name"></h2>
                <div id="history" class="card error"></div>               
-               <div id="currency" class="card">            
+               <div id="currency">            
                     <h6 class="error"> </h6>
                     <div id="today-rate" class="error"></div>
                </div>   
                <h4 id="capital-name" class="error">Capital Name</h4>
-               <div id="mapWeatherContainer" class="mapWeatherContainer">
+               <div id="mapWeatherContainer">
                     <div id="map" class="map">            
                          <h6 class="error"> </h6>
                          <div id="currentMap" class="error">Map</div>

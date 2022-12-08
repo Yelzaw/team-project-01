@@ -1,14 +1,22 @@
 $(document).ready(function(){
      const searches = JSON.parse(window.localStorage.getItem("search")) || [];
-     var searchHistoryListEl=document.querySelector('#previos-search');
+     var searchHistoryListEl=document.querySelector('#previous-search');
 
      function historyListUpdate() {
+
+          if (searches.length!==0){
+               $('.clearBtn').attr("style","display:block");
+          } 
+          else if (searches.length===0){
+               $('.clearBtn').attr("style","display:none");
+          }
+
           for (let i =0; i<searches.length; i++){
                searches.length > 5? searches.shift() : searches;// if there are more than 5 searches, remove the oldest one
 
                //when click history list, will show country
-               const newPreviosSearch = `<button id="eachPreviousSearch${i}" class="eachPreviousSearch">${searches[i]}</button>`
-               $('#previos-search').prepend(newPreviosSearch); 
+               const newPreviousSearch = `<button id="eachPreviousSearch${i}" class="eachPreviousSearch">${searches[i]}</button>`
+               $('#previous-search').prepend(newPreviousSearch); 
                $(`#eachPreviousSearch${i}`).on('click', function() {
                     callCountryData(searches[i])
                }) 
@@ -19,7 +27,7 @@ $(document).ready(function(){
      var latitude = 45.42;
      var longtitude = -75.7;
      var inputValue;
-     var countries = ["Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla","Antigua & Barbuda","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Bosnia & Herzegovina","Botswana","Brazil","British Virgin Islands","Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Canada","Cape Verde","Cayman Islands","Central Arfrican Republic","Chad","Chile","China","Colombia","Congo","Cook Islands","Costa Rica","Cote D Ivoire","Croatia","Cuba","Curacao","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Ethiopia","Falkland Islands","Faroe Islands","Fiji","Finland","France","French Polynesia","French West Indies","Gabon","Gambia","Georgia","Germany","Ghana","Gibraltar","Greece","Greenland","Grenada","Guam","Guatemala","Guernsey","Guinea","Guinea Bissau","Guyana","Haiti","Honduras","Hong Kong","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Isle Of Man","Israel","Italy","Jamaica","Japan","Jersey","Jordan","Kazakhstan","Kenya","Kiribati","Kosovo","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Macau","Macedonia","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Montserrat","Morocco","Mozambique","Myanmar","Namibia","Nauro","Nepal","Netherlands","Netherlands Antilles","New Caledonia","New Zealand","Nicaragua","Niger","Nigeria","North Korea","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Puerto Rico","Qatar","Reunion","Romania","Russia","Rwanda","Saint Pierre & Miquelon","Samoa","San Marino","Sao Tome And Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","St Kitts & Nevis","St Lucia","St Vincent","Sudan","Suriname","Swaziland","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor L'este","Togo","Tonga","Trinidad & Tobago","Tunisia","Turkey","Turkmenistan","Turks & Caicos","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States Of America","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Virgin Islands (Us)","Yemen","Zambia","Zimbabwe"];
+     var countries = ["Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla","Antigua & Barbuda","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Bosnia & Herzegovina","Botswana","Brazil","British Virgin Islands","Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Canada","Cape Verde","Cayman Islands","Central African Republic","Chad","Chile","China","Colombia","Congo","Cook Islands","Costa Rica","Cote D Ivoire","Croatia","Cuba","Curacao","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Ethiopia","Falkland Islands","Faroe Islands","Fiji","Finland","France","French Polynesia","French West Indies","Gabon","Gambia","Georgia","Germany","Ghana","Gibraltar","Greece","Greenland","Grenada","Guam","Guatemala","Guernsey","Guinea","Guinea Bissau","Guyana","Haiti","Honduras","Hong Kong","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Isle Of Man","Israel","Italy","Jamaica","Japan","Jersey","Jordan","Kazakhstan","Kenya","Kiribati","Kosovo","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Macau","Macedonia","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Montserrat","Morocco","Mozambique","Myanmar","Namibia","Nauro","Nepal","Netherlands","Netherlands Antilles","New Caledonia","New Zealand","Nicaragua","Niger","Nigeria","North Korea","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Puerto Rico","Qatar","Reunion","Romania","Russia","Rwanda","Saint Pierre & Miquelon","Samoa","San Marino","Sao Tome And Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","St Kitts & Nevis","St Lucia","St Vincent","Sudan","Suriname","Swaziland","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor L'este","Togo","Tonga","Trinidad & Tobago","Tunisia","Turkey","Turkmenistan","Turks & Caicos","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Virgin Islands (Us)","Yemen","Zambia","Zimbabwe"];
 
      initMap();
      // Button function for search
@@ -43,7 +51,7 @@ $(document).ready(function(){
      function formatString(str) {
           return str
             .replace(/(\B)[^ ]*/g, match => (match.toLowerCase()))
-            .replace(/^[^ ]/g, match => (match.toUpperCase()));
+            .replace(/(^\w{1})|(\s+\w{1})/g, match => (match.toUpperCase()));
         }
 
      //Store data in localstorage
@@ -79,7 +87,7 @@ $(document).ready(function(){
           exchangeInfo.innerHTML=""; //to make sure there is no data from previous search
           if (input=="Canada"){
                compareCurrency = "USD";
-               compareName = "United State dollar";
+               compareName = "United States dollar";
           }
 
           var country= "https://restcountries.com/v3.1/name/"+input+"?fullText=true"; //API link to get country information
@@ -109,7 +117,7 @@ $(document).ready(function(){
 
      // CURRENCY EXCHANGE RATE
      function currencyExchange(){          
-          var key = "9d764e23d7588b589becfa68e6021ab75a789334";
+          var key = "e850a848ce4d55bbbfb07844e6e8f9c7af75429a";
 
           const url1 =  "https://api.getgeoapi.com/v2/currency/convert?api_key="+key+"&from="+compareCurrency+"&to="+currencyCode+"&amount=1&format=json"
           fetch(url1)
@@ -147,7 +155,7 @@ $(document).ready(function(){
                .then(function(response){
                     if(response.ok){
                          response.json().then(function(data){
-                              console.log(data);//JSON data to show in console
+                              // console.log(data);//JSON data to show in console
                               var page = data.query.pages;
                               var pageId = Object.keys(page)[0];
                               var blurb = page[pageId].extract;
@@ -176,6 +184,13 @@ $(document).ready(function(){
           });
      }
      // END OF MAP
-     // on window load, call country data of last search or default country
-     window.onload = searches[4]? callCountryData(searches[4]):callCountryData("Canada"); // <---- default country to load, keep commented unless testing or deploying to avoid API call limit
+
+
+     //clear search history
+     $(".clearBtn").on("click",function(){
+          localStorage.clear();
+          location.reload();
+     })
+     
+     window.onload = callCountryData("Canada"); // <---- default country to load, keep commented unless testing or deploying to avoid API call limit
 })
